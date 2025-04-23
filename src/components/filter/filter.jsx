@@ -1,16 +1,16 @@
 /** @format */
 
 import "./filter.css";
-const Filter = () => {
+const Filter = ({favoriteMovies,allMoviesView,viewMovies}) => {
   return (
     <div className="btn-group">
-      <button className="btn btn-dark" type="button">
+      <button onClick={allMoviesView} className="btn btn-dark" type="button">
         Barch kinolar
       </button>
-      <button className="btn btn-outline-dark" type="button">
+      <button onClick={favoriteMovies} className="btn btn-outline-dark" type="button">
         Mashhur kinolar
       </button>
-      <button className="btn btn-outline-dark" type="button">
+      <button onClick={viewMovies} className="btn btn-outline-dark" type="button">
         Eng ko'p korilgan kinolar
       </button>
     </div>

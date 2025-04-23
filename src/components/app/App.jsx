@@ -75,6 +75,44 @@ const App = () => {
     setData(updatedMovies);
   };
 
+  const allMoviesView = () => {
+    const movies = localStorage.getItem("movies");
+    if (movies) {
+      const allMovie = JSON.parse(movies);
+      setSearchData(allMovie);
+    }
+  };
+
+  const viewMovies = () => {
+    const movies = localStorage.getItem("movies");
+    if (movies) {
+      const allMovie = JSON.parse(movies).sort((a, b) => b.views - a.views);
+      setSearchData(allMovie);
+    }
+  };
+
+  const favoriteMovies = () => {
+    const movies = localStorage.getItem("movies");
+    if (movies) {
+      const movieFavo = JSON.parse(movies).filter(
+        (item) => item.favourite === true
+      );
+      setSearchData(movieFavo);
+    }
+  };
+
+  const handleEdit = (id, modalName, modalViews) => {
+    const movie = localStorage.getItem("movies");
+    const updateMovie = JSON.parse(movie).map((item) =>
+      item.id === id
+        ? { ...item, name: modalName, views: parseInt(modalViews) }
+        : item
+    );
+    setData(updateMovie);
+    setSearchData(updateMovie);
+    localStorage.setItem("movies", JSON.stringify(updateMovie));
+  };
+
   return (
     <div className="app font-monospace">
       <div className="content">
@@ -85,7 +123,11 @@ const App = () => {
         />
         <div className="search-panel">
           <SearchPanel search={search} setSearch={setSearch} />
-          <Filter />
+          <Filter
+            favoriteMovies={favoriteMovies}
+            allMoviesView={allMoviesView}
+            viewMovies={viewMovies}
+          />
         </div>
         <MoviList
           data={sarchData}
@@ -93,6 +135,7 @@ const App = () => {
           onDelete={onDelete}
           clickLike={clickLike}
           clickFavourite={clickFavourite}
+          handleEdit={handleEdit}
         />
         <MoviesAddForm data={data} setData={setData} />
       </div>

@@ -12,6 +12,7 @@ const MoviList = ({
   favourite,
   like,
   searchData,
+  handleEdit
 }) => {
   return (
     <ul className="movi-list">
@@ -23,6 +24,7 @@ const MoviList = ({
           onDelete={() => onDelete(item.id)}
           clickLike={clickLike}
           clickFavourite={clickFavourite}
+          handleEdit={handleEdit}
         />
       ))}
     </ul>
